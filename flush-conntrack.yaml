@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flush-conntrack
+  labels:
+    app: flush-conntrack
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: flush-conntrack
+  template:
+    metadata:
+      labels:
+        app: flush-conntrack
+    spec:
+      automountServiceAccountToken: true
+      serviceAccountName: kubectl
+      containers:
+      - name: flush-conntrack
+        image: suckzoo/flush-conntrack:0.0.1a
+        ports:
+        - containerPort: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: flush-conntrack
+spec:
+  selector:
+    app: flush-conntrack
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80

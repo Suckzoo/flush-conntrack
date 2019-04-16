@@ -1,0 +1,36 @@
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: kubectl
+  namespace: default
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: kubectl
+  namespace: kube-system
+  labels:
+    app: kubectl
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list"]
+- apiGroups: [""]
+  resources: ["pods/exec"]
+  verbs: ["create"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: kubectl-rb
+  namespace: kube-system
+  labels:
+    app: kubectl
+subjects:
+- kind: ServiceAccount
+  name: kubectl
+  namespace: default
+roleRef:
+  kind: Role
+  name: kubectl
+  apiGroup: rbac.authorization.k8s.io
