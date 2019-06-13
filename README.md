@@ -47,10 +47,10 @@ initContainers:
   env:
   - name: TARGET_IP
     valueFrom:
-    fieldRef:
+      fieldRef:
         fieldPath: status.hostIP
   - name: TARGET_PORT
-      value: "8125"
+    value: "8125"
 ```
 
 ## License

@@ -13,4 +13,4 @@ then
 fi
 
 echo "$TARGET_IP:$TARGET_PORT"
-curl "http://flush-conntrack.default/flush?ip=$TARGET_IP&port=$TARGET_PORT"
+curl "http://flush-conntrack.$TARGET_NAMESPACE/flush?ip=$TARGET_IP&port=$TARGET_PORT"
