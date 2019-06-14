@@ -49,6 +49,10 @@ initContainers:
     valueFrom:
       fieldRef:
         fieldPath: status.hostIP
+  - name: TARGET_NAMESPACE
+    valueFrom:
+      fieldRef:
+        fieldPath: metadata.namespace
   - name: TARGET_PORT
     value: "8125"
 ```
